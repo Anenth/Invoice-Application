@@ -1,0 +1,59 @@
+.navbar-static-top {
+	margin-bottom: 22px;
+}
+
+.label_align_middle {
+	text-align: center;
+	line-height: 2.1em;
+}
+
+.label_align_line_height {
+	line-height: 2.1em;
+}
+
+#Product_table td {
+	position: relative;
+}
+
+#Product_table form {
+	margin: 0;
+}
+
+#Product_table button {
+	position: absolute;
+	border: none;
+	background: none;
+	top: 2px;
+	right: 0;
+}
+
+#Product_table button:hover {
+	background: red;
+}
+
+#alert_del {
+	opacity: 0;
+}
+
+table th {
+	font-weight: lighter !important;
+}
+
+.table th,.table td {
+	vertical-align: middle;
+}
+
+#Total_bill {
+	background: greenYellow;
+	padding: 3px;
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: black;
+}
+
+@media print {
+	.navbar,.form-search,#save_print {
+		display: none;
+	}
+}

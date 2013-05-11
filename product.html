@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Products</title>
+
+<link rel="stylesheet" type="text/css"
+	href="static/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="static/bootstrap/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" type="text/css" href="static/css/demo_table.css" />
+<link rel="stylesheet" type="text/css"
+	href="static/css/demo_table_jui.css" />
+<link rel="stylesheet" type="text/css"
+	href="static/css/jquery-ui-1.8.4.custom.css" />
+<link rel="stylesheet" type="text/css"
+	href="static/css/TableTools_JUI.css" />
+<link rel="stylesheet" type="text/css" href="static/css/main.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-static-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#">Saj</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li><a href="/">Invoice</a></li>
+						<li class="active"><a href="/product">Products</a></li>
+						<li><a href="/report">Report</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="tabbable tabs-left">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#Products" data-toggle="tab"><i
+						class="icon-align-center"> </i> Products</a></li>
+				<li><a href="#AddProduct" data-toggle="tab"><i
+						class="icon-plus"> </i> Add Product</a></li>
+				<li><a href="#AddStock" data-toggle="tab"><i
+						class="icon-share"> </i> Add Stock</a></li>
+
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="Products">
+					{% if numberproducts %}
+
+					<table id="Product_table" cellpadding="0" cellspacing="0"
+						border="0" class="display">
+						<thead>
+							<tr>
+								<th>P.id</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>P.Date</th>
+								<th>L Billed Date</th>
+							</tr>
+						<tbody>
+							{% for product in products %}
+							<tr>
+								<td>{{product.key.id}}
+									<form id="delete_form"
+										action="/removeProduct" method="post">
+										<input name="del_id" type="hidden" value="{{product.key.id}}" />
+										<button>
+											<i class="icon-remove"></i>
+										</button>
+									</form>
+								</td>
+								<td>{{product.desc}}</td>
+								<td>{{product.price}}</td>
+								<td class="center">{{product.qty}}</td>
+								<td class="center">{{product.pdate|date:"d.m.Y"}}</td>
+								<td class="center">{{product.mdate|date:"d.m.Y"}}</td>
+
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					{% endif %}
+				</div>
+
+				<div class="tab-pane" id="AddProduct">
+					<fieldset>
+						<legend>Add New Product</legend>
+						<form action="/newProduct" method="get" class="form-horizontal">
+							<div class="control-group">
+								<label class="control-label" for="desc">Description</label>
+								<div class="controls">
+									<input required type="text" name="desc" id="desc"
+										placeholder="Description">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="price">Price</label>
+								<div class="controls">
+									<input required type="number" name="price" id="price"
+										placeholder="Price">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="qty">Quantity</label>
+								<div class="controls">
+									<input required type="number" name="qty" id="qty"
+										placeholder="Quantity">
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn">Add</button>
+								</div>
+							</div>
+						</form>
+
+					</fieldset>
+
+				</div>
+				<div class="tab-pane" id="AddStock">
+					<fieldset>
+						<legend>Add Stock</legend>
+						<form autocomplete="off" action="/addStock" method="get"
+							class="form-horizontal">
+							<div class="control-group">
+								<label class="control-label" for="desc">ID</label>
+								<div class="controls">
+									<input required type="text" name="addStock_id" id="addStock_id"
+										placeholder="Product id">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="desc">Description</label>
+								<div class="controls">
+									<input required type="text" name="addStock_desc"
+										id="addStock_desc" placeholder="Description">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="price">Price</label>
+								<div class="controls">
+									<label class="label_align_line_height" id="addStock_price"></label>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="qty">Quantity</label>
+								<div class="controls">
+									<div class="row-fluid">
+										<label class="span2 label_align_middle" id="addStock_qty"></label>
+										<i class="icon-plus"> </i> <input class="span2" required
+											type="number" name="addStock_qty" id="addStock_qty"
+											placeholder="qty">
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn">Add</button>
+								</div>
+							</div>
+						</form>
+					</fieldset>
+				</div>
+			</div>
+			
+		</div>
+
+		
+
+	</div>
+	<script src="static/js/jquery-1.8.2.min.js"></script>
+	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	<script src="static/js/jquery.dataTables.min.js"></script>
+	<script src="static/js/TableTools.min.js"></script>
+	<script src="static/js/main.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#Product_table').dataTable({
+				"bJQueryUI" : true,
+				"sPaginationType" : "full_numbers",
+				"sDom" : '<"H"Tfr>t<"F"ip>',
+				"oTableTools" : {
+					"aButtons" : [ "copy", "csv", "xls", "pdf", {
+						"sExtends" : "collection",
+						"sButtonText" : "Save",
+						"aButtons" : [ "csv", "xls", "pdf" ]
+					} ]
+				}
+			});
+		});
+	</script>
+</body>
+</html>
